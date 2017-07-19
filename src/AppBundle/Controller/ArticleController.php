@@ -13,7 +13,7 @@ class ArticleController extends Controller
 {
     /**
      * @Rest\View()
-     * @Rest\Get("/articles")
+     * @Rest\Get("api/articles")
      */
     public function getArticlesAction()
     {
@@ -26,7 +26,7 @@ class ArticleController extends Controller
 
     /**
      * @Rest\View()
-     * @Rest\Get("articles/{id}")
+     * @Rest\Get("api/articles/{id}")
      */
     public function getArticleAction(Article $article)
     {    

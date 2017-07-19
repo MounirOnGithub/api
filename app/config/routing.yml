@@ -1,6 +1,19 @@
 article:
     resource: AppBundle\Controller\ArticleController
-    type: rest
+    type:     rest
+    
+user:
+    resource: AppBundle\Controller\UserController
+    type:     rest
 
-api_login_check:
-    path: /api/login_check
+# app/config/routing.yml
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
