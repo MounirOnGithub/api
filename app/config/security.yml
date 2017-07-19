@@ -7,6 +7,9 @@ security:
         in_memory:
             memory: ~
 
+    encoders:
+        Symfony\Component\Security\Core\User\User: sha512
+
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         login:
