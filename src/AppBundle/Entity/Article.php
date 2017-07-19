@@ -128,6 +128,7 @@ class Article
      */
     public function createDate() {
         $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
