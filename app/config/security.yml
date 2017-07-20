@@ -22,7 +22,7 @@ security:
             anonymous: true
             provider: fos_userbundle
             form_login:
-                username_parameter:       username
+                username_parameter:       mail
                 password_parameter:       password
                 check_path:               /login_check
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
