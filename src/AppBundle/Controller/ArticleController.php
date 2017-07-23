@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,24 +77,31 @@ class ArticleController extends Controller
     public function updateArticleAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository(Article::class)->find($id);
+        $article = $em->getRepository('AppBundle:Article')->find($id);
 
-        if (!$article) {
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
-        }
-        $title = $request->request->get('title');
-        if ($title) {
-            $article->setTitle($title);
+        if (!$article){
+            throw $this->createNotFoundException(sprintf(
+                'No article found with id "%s"',
+                $$id
+            ));
         }
 
-        $content = $request->request->get('content');
-        if ($content) {
-            $article->setContent($content);
-        }
-        $em->flush();
+        $data = json_decode($request->getContent(), true);
 
-        return $article;
+        // use form type and persist
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->submit($data, false);
+
+        if ($form->isValid()) {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $em->merge($article);
+            $em->flush();
+            return $article;
+        } else {
+            throw $this->createNotFoundException(sprintf(
+                'No article found with id "%s"',
+                $$id
+            ));
+        }
     }
 }
